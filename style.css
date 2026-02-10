@@ -1,0 +1,81 @@
+* {
+  box-sizing: border-box;
+  font-family: Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+body {
+  height: 100vh;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  box-shadow: 0 2px 3px #6a48451f;
+}
+
+header .logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #6a4845;
+}
+
+header .logo span {
+  font-size: 3rem;
+  color: #6a4845;
+}
+header ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+header a {
+  text-decoration: none;
+  font-size: 1rem;
+  color: #ab7b77;
+}
+
+header .addBook {
+  padding: 10px;
+  background-color: #6a4845;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 25px;
+  padding-inline: 30px;
+}
+main {
+  background-color: gray;
+  width: 70%;
+  margin: auto;
+}
+.hero img {
+  width: 100%;
+}
+
+.hero {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+  margin-top: 3rem;
+  height: 250px;
+}
+.hero .txt-hero {
+  padding: 10px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.hero .img-hero {
+  padding: 10px;
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
