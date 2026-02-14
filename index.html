@@ -8,6 +8,11 @@
     <script src="script.js" defer></script>
     <link
       rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css
+"
+    />
+    <link
+      rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@mdi/font@7.4.47/css/materialdesignicons.min.css"
     />
   </head>
@@ -19,8 +24,7 @@
       </div>
       <nav>
         <ul>
-          <li><a href="">Books</a></li>
-          <li><a href="">Favorits</a></li>
+          <li><a href="#books">Books</a></li>
           <li><button class="addBook">Add book</button></li>
         </ul>
       </nav>
@@ -29,12 +33,19 @@
       <section class="hero">
         <div class="txt-hero">
           <h2>Hello, Reader!</h2>
-          <p>Selection of the best books just for you.</p>
-          <button>Show latest</button>
+          <p>
+            Selection of the best book <br />
+            just for you.
+          </p>
+          <a href="#books"><button>Show latest</button></a>
         </div>
         <div class="img-hero">
-          <img src="book-white-background.jpg" alt="" />
+          <img src="New_-Publisher-Collections.avif" alt="" />
         </div>
+      </section>
+      <section class="books" id="books">
+        <h2>Books</h2>
+        <div class="book-container"></div>
       </section>
     </main>
   </body>
