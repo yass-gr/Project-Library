@@ -48,5 +48,44 @@
         <div class="book-container"></div>
       </section>
     </main>
+    <dialog id="modal">
+      <button id="closeBtn">
+        <span class="mdi mdi-close"></span>
+      </button>
+      <h1>Add Book To Library</h1>
+      <form action="dialog" id="form">
+        <input type="text" id="author" placeholder="Author" />
+        <input type="text" name="" id="title" placeholder="Title" />
+        <input type="text" id="desc" placeholder="Description" />
+        <input type="number" name="" id="pages" placeholder="Pages Number" />
+        <select name="rating" id="rating">
+          <option value="1">Select rating</option>
+          <option value="1">★☆☆☆☆</option>
+          <option value="2">★★☆☆☆</option>
+          <option value="3">★★★☆☆</option>
+          <option value="4">★★★★☆</option>
+          <option value="5">★★★★★</option>
+        </select>
+        <select name="color" id="color">
+          <option value="AntiqueWhite">Select Book Color</option>
+          <option value="AntiqueWhite">AntiqueWhite</option>
+          <option value="AliceBlue">AliceBlue</option>
+          <option value="Chocolate">Chocolate</option>
+          <option value="Crimson">Crimson</option>
+          <option value="DarkCyan">DarkCyan</option>
+          <option value="DarkRed">DarkRed</option>
+          <option value="DarkSalmon">DarkSalmon</option>
+          <option value="DarkSlateGray">DarkSlateGray</option>
+          <option value="LightSkyBlue">LightSkyBlue</option>
+          <option value="MediumSlateBlue">MediumSlateBlue</option>
+          <option value="Orange">Orange</option>
+          <option value="Tomato">Tomato</option>
+          <option value="WhiteSmoke">WhiteSmoke</option>
+          <option value="YellowGreen">YellowGreen</option>
+        </select>
+        <button type="submit" id="addBtn">Add</button>
+      </form>
+    </dialog>
+    <footer>© Copyight Yassine Gr</footer>
   </body>
 </html>

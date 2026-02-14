@@ -1,4 +1,16 @@
 const bookContainer = document.querySelector(".book-container");
+const modal = document.querySelector("#modal");
+const addBookBtn = document.querySelector(".addBook");
+//modal elements
+const addBtn = document.querySelector("#addBtn");
+const authorInput = document.querySelector("#author");
+const titleInput = document.querySelector("#title");
+const descInput = document.querySelector("#desc");
+const pageNumberInput = document.querySelector("#pages");
+const ratingInput = document.querySelector("#rating");
+const colorInput = document.querySelector("#color");
+const form = document.querySelector("#form");
+const closeModelBtn = document.querySelector("#closeBtn");
 
 let myLibrary = [];
 
@@ -11,6 +23,11 @@ function Book(author, title, description, rating, pageNumber, color) {
   this.color = color;
   this.pageNumber = pageNumber;
   this.read = false;
+
+  this.updateReadStatus = function () {
+    this.read = this.read ? false : true;
+    return;
+  };
 }
 
 function addBookToLibrary(
@@ -21,7 +38,7 @@ function addBookToLibrary(
   rating,
   color,
 ) {
-  myLibrary.push(
+  myLibrary.unshift(
     new Book(author, title, description, rating, pageNumber, color),
   );
   return;
@@ -33,7 +50,7 @@ const b1 = addBookToLibrary(
   "A dystopian novel about totalitarianism and constant surveillance, exploring themes of truth and freedom.",
   328,
   4.7,
-  "red",
+  "AntiqueWhite",
 );
 const b2 = addBookToLibrary(
   "Harper Lee",
@@ -41,7 +58,7 @@ const b2 = addBookToLibrary(
   "A story of racial injustice and childhood innocence in the American South, seen through the eyes of Scout Finch.",
   281,
   4.8,
-  "blue",
+  "AliceBlue",
 );
 const b3 = addBookToLibrary(
   "J.K. Rowling",
@@ -49,7 +66,7 @@ const b3 = addBookToLibrary(
   "The first book in the magical Harry Potter series, following the young wizard's adventures at Hogwarts.",
   309,
   3,
-  "purple",
+  "Chocolate",
 );
 const b4 = addBookToLibrary(
   "F. Scott Fitzgerald",
@@ -57,7 +74,7 @@ const b4 = addBookToLibrary(
   "A tragic tale of wealth, love, and the American Dream in 1920s New York.",
   180,
   4.4,
-  "green",
+  "Crimson",
 );
 const b5 = addBookToLibrary(
   "Jane Austen",
@@ -65,7 +82,7 @@ const b5 = addBookToLibrary(
   "A classic romance exploring societal expectations, family, and love in 19th-century England.",
   279,
   4.6,
-  "pink",
+  "DarkCyan",
 );
 const b6 = addBookToLibrary(
   "Markus Zusak",
@@ -73,7 +90,7 @@ const b6 = addBookToLibrary(
   "Set in Nazi Germany, a young girl finds solace in stealing books while her family hides a Jewish man.",
   552,
   4.7,
-  "orange",
+  "DarkRed",
 );
 const b7 = addBookToLibrary(
   "Leo Tolstoy",
@@ -81,7 +98,7 @@ const b7 = addBookToLibrary(
   "An epic novel covering French invasion of Russia, weaving together personal lives and historical events.",
   1225,
   4.5,
-  "brown",
+  "Crimson",
 );
 const b8 = addBookToLibrary(
   "Gabriel García Márquez",
@@ -89,7 +106,7 @@ const b8 = addBookToLibrary(
   "A multi-generational story of the Buendía family in the magical town of Macondo, blending reality and fantasy.",
   417,
   2,
-  "yellow",
+  "DarkSlateGray",
 );
 const b9 = addBookToLibrary(
   "Herman Melville",
@@ -97,7 +114,7 @@ const b9 = addBookToLibrary(
   "The obsessive quest of Captain Ahab to hunt the white whale, exploring human nature and destiny.",
   635,
   4.3,
-  "grey",
+  "LightSkyBlue",
 );
 const b10 = addBookToLibrary(
   "Chimamanda Ngozi Adichie",
@@ -105,12 +122,12 @@ const b10 = addBookToLibrary(
   "Set during the Nigerian Civil War, it follows the lives, love, and struggles of a group of characters.",
   448,
   4.5,
-  "teal",
+  "MediumSlateBlue",
 );
 
 function refreshUI() {
-  bookContainer.textContent = "";
-  for (book of myLibrary) {
+  bookContainer.replaceChildren();
+  for (let book of myLibrary) {
     let bookCard = document.createElement("div");
     let bookTxt = document.createElement("div");
     let bookImg = document.createElement("div");
@@ -129,7 +146,7 @@ function refreshUI() {
     stars.textContent =
       "★".repeat(Math.floor(book.rating)) +
       "☆".repeat(5 - Math.floor(book.rating));
-    stars.style.color = "#f5c842";
+    stars.style.color = "#cb9c11ff";
     img.style.color = book.color;
     bookDescription.textContent = book.description;
     readButton.textContent = "Unread";
@@ -162,38 +179,70 @@ function refreshUI() {
     bookId.classList.add("id");
     readButton.classList.add("readButton");
     delButton.classList.add("delButton");
+
+    readButton.style.backgroundColor = book.read
+      ? "rgba(23, 210, 56, 0.71)"
+      : "rgb(148, 147, 147)";
+    bookCard.style.backgroundColor = book.read
+      ? "rgba(23, 210, 57, 0.215)"
+      : "white";
+
+    let readBtns = document.querySelectorAll(".readButton");
+    readBtns.forEach((btn) =>
+      btn.addEventListener("click", (e) => {
+        if (
+          book.id ===
+          e.target.nextElementSibling.querySelector(".id").textContent
+        ) {
+          if (!book.read) {
+            book.read = true;
+            refreshUI();
+          } else {
+            book.read = false;
+            refreshUI();
+          }
+        }
+      }),
+    );
+
+    let delBtns = document.querySelectorAll(".delButton");
+    delBtns.forEach((btn) =>
+      btn.addEventListener("click", (e) => {
+        for (let b of myLibrary) {
+          if (b.id === e.target.querySelector(".id").textContent) {
+            myLibrary = myLibrary.filter((bk) => bk !== b);
+            refreshUI();
+          }
+        }
+      }),
+    );
   }
 }
 
 refreshUI();
 
-let delBtns = document.querySelectorAll(".delButton");
-delBtns.forEach((btn) =>
-  btn.addEventListener("click", (e) => {
-    for (book of myLibrary) {
-      if (book.id === e.target.querySelector(".id").textContent) {
-        myLibrary = myLibrary.filter((b) => b !== book);
-        e.target.closest(".bookCard").remove();
-      }
-    }
-  }),
-);
+addBookBtn.addEventListener("click", () => {
+  modal.showModal();
+});
 
-let readBtns = document.querySelectorAll(".readButton");
-readBtns.forEach((btn) =>
-  btn.addEventListener("click", (e) => {
-    for (book of myLibrary) {
-      if (
-        book.id === e.target.nextElementSibling.querySelector(".id").textContent
-      ) {
-        if (book.read) {
-          e.target.classList.add("read");
-          e.target.closest(".bookCard").classList.add("read2");
-        } else {
-          e.target.classList.remove("read");
-          e.target.closest(".bookCard").classList.remove("read2");
-        }
-      }
-    }
-  }),
-);
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
+
+addBtn.addEventListener("click", (e) => {
+  addBookToLibrary(
+    authorInput.value,
+    titleInput.value,
+    descInput.value,
+    pageNumberInput.value,
+    ratingInput.value,
+    colorInput.value,
+    modal.close(),
+  );
+
+  refreshUI();
+});
+
+closeModelBtn.addEventListener("click", () => {
+  modal.close();
+});
