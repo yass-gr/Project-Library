@@ -10,6 +10,7 @@ function Book(author, title, description, rating, pageNumber, color) {
   this.rating = rating;
   this.color = color;
   this.pageNumber = pageNumber;
+  this.read = false;
 }
 
 function addBookToLibrary(
@@ -44,7 +45,7 @@ const b2 = addBookToLibrary(
 );
 const b3 = addBookToLibrary(
   "J.K. Rowling",
-  "Harry Potter and the Sorcerer's Stone",
+  "Harry Potter",
   "The first book in the magical Harry Potter series, following the young wizard's adventures at Hogwarts.",
   309,
   3,
@@ -111,7 +112,6 @@ function refreshUI() {
   bookContainer.textContent = "";
   for (book of myLibrary) {
     let bookCard = document.createElement("div");
-
     let bookTxt = document.createElement("div");
     let bookImg = document.createElement("div");
     let bookDescription = document.createElement("p");
@@ -119,10 +119,8 @@ function refreshUI() {
     let authorAndPages = document.createElement("span");
     let stars = document.createElement("span");
     let img = document.createElement("span");
-
     let readButton = document.createElement("button");
     let delButton = document.createElement("button");
-
     let buttonsContainer = document.createElement("div");
     let bookId = document.createElement("span");
 
@@ -132,37 +130,22 @@ function refreshUI() {
       "★".repeat(Math.floor(book.rating)) +
       "☆".repeat(5 - Math.floor(book.rating));
     stars.style.color = "#f5c842";
-    img.classList.add("mdi");
-    img.classList.add("mdi-book-open-blank-variant");
     img.style.color = book.color;
-
     bookDescription.textContent = book.description;
-    bookDescription.classList.add("bookDescription");
-
-    readButton.classList.add("readButton");
-    delButton.classList.add("delButton");
-
     readButton.textContent = "Unread";
     delButton.textContent = "Delete";
-
     bookId.textContent = book.id;
-    bookId.classList.add("none");
-    bookId.classList.add("id");
 
-    buttonsContainer.classList.add("btns");
     buttonsContainer.appendChild(readButton);
     buttonsContainer.appendChild(delButton);
-
     bookCard.appendChild(bookTxt);
     bookCard.appendChild(bookImg);
     bookCard.appendChild(bookDescription);
     delButton.appendChild(bookId);
-
     bookTxt.appendChild(bookTitle);
     bookTxt.appendChild(authorAndPages);
     bookTxt.appendChild(stars);
     bookTxt.appendChild(buttonsContainer);
-
     bookImg.appendChild(img);
     bookContainer.appendChild(bookCard);
 
@@ -171,35 +154,46 @@ function refreshUI() {
     bookImg.classList.add("bookImg");
     stars.classList.add("stars");
     authorAndPages.classList.add("author");
+    img.classList.add("mdi");
+    img.classList.add("mdi-book-open-blank-variant");
+    bookDescription.classList.add("bookDescription");
+    buttonsContainer.classList.add("btns");
+    bookId.classList.add("none");
+    bookId.classList.add("id");
+    readButton.classList.add("readButton");
+    delButton.classList.add("delButton");
   }
 }
 
 refreshUI();
-let btns = document.querySelectorAll(".readButton");
-btns.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    if (e.target.textContent === "Unread") {
-      e.target.classList.add("read");
-      e.target.textContent = "Read";
-      e.target.closest(".bookCard").classList.add("read2");
-    } else {
-      e.target.classList.remove("read");
-      e.target.textContent = "Unread";
-      e.target.closest(".bookCard").classList.remove("read2");
-    }
-  });
-});
 
-let btnsDel = document.querySelectorAll(".delButton");
-btnsDel.forEach((btn) => {
+let delBtns = document.querySelectorAll(".delButton");
+delBtns.forEach((btn) =>
   btn.addEventListener("click", (e) => {
-    let id = document.querySelector(".id");
     for (book of myLibrary) {
-      if (book.id === id.textContent) {
-        myLibrary = myLibrary.filter((book) => book.id !== id.textContent);
+      if (book.id === e.target.querySelector(".id").textContent) {
+        myLibrary = myLibrary.filter((b) => b !== book);
         e.target.closest(".bookCard").remove();
-        console.log(myLibrary);
       }
     }
-  });
-});
+  }),
+);
+
+let readBtns = document.querySelectorAll(".readButton");
+readBtns.forEach((btn) =>
+  btn.addEventListener("click", (e) => {
+    for (book of myLibrary) {
+      if (
+        book.id === e.target.nextElementSibling.querySelector(".id").textContent
+      ) {
+        if (book.read) {
+          e.target.classList.add("read");
+          e.target.closest(".bookCard").classList.add("read2");
+        } else {
+          e.target.classList.remove("read");
+          e.target.closest(".bookCard").classList.remove("read2");
+        }
+      }
+    }
+  }),
+);
