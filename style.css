@@ -120,7 +120,7 @@ main {
   margin-top: 20px;
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
 }
 
 .bookCard {
@@ -162,7 +162,7 @@ main {
   justify-content: center;
   grid-area: 1 / 1 / 2 / 2;
   justify-self: center;
-  padding: 5px;
+  padding: 15px;
 }
 .bookImg span {
   font-size: 10rem;
